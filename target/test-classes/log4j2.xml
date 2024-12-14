@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Properties>
+		<Property name="basePath">./logs</Property>
+	</Properties>
+    
+    <!-- Define the Appenders (outputs) for the logs -->
+    <Appenders>
+        <!-- Console appender that writes logs to the console -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n" />
+        </Console>
+
+        <!-- File appender that writes logs to a file -->
+        <File name="File" fileName="${basePath}/automation.log">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n" />
+            <SizeBaseTriggeringPolicy size="50000" />
+        </File>
+    </Appenders>
+
+    <!-- Define the Loggers (where the logs are recorded) -->
+    <Loggers>
+        <!-- Root logger configuration, controls logging level for all loggers -->
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="File" />
+        </Root>
+
+        <!-- Add a logger for Selenium specific logs (optional) -->
+        <Logger name="org.openqa.selenium" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="File" />
+        </Logger>
+    </Loggers>
+</Configuration>
